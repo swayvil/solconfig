@@ -197,7 +197,7 @@ public class Commander {
         return configBroker;
     }
 
-    public void update(Path confPath, boolean isNoDelete) {
+    public void update(Path confPath, boolean isNoDelete, boolean isSkipVPN) {
         ConfigBroker configFile = getConfigBrokerFromFile(confPath);
         exitOnObjectsNotExist(configFile);
 
@@ -218,6 +218,12 @@ public class Commander {
             logger.warn("Targeted broker is on Solace Cloud, objects {} will be ignored",
                     SempSpec.SPEC_PATHS_OF_OBJECTS_OF_CLOUD_INSTANCE);
             configFile.ignoreObjectsForCloudInstance();
+        }
+
+        if (isSkipVPN){
+            // ignore update of Message-VPN settings
+            logger.warn("Message-VPN settings won't be updated");
+            configFile.ignoreMsgVPNObject();
         }
 
         var deleteCommandList = new RestCommandList();
@@ -256,7 +262,7 @@ public class Commander {
         backup(type, vpn, false);
 
         System.out.println("## update "+path);
-        update(Path.of("examples/template/demo_vpn.json"), false);
+        update(Path.of("examples/template/demo_vpn.json"), false, false);
 
         System.out.printf("## delete %s %s%n", type, vpn[0]);
         delete(type, vpn);

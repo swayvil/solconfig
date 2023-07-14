@@ -430,4 +430,11 @@ public class ConfigObject {
         }
         forEachChild(ConfigObject::ignoreObjectsForCloudInstance);
     }
+
+    public void ignoreMsgVPNObject() {
+        if (SempSpec.SPEC_PATHS_OF_OBJECTS_OF_VPN.contains(specPath)){
+            attributes.put(SempSpec.SKIP_THIS_OBJECT, true);
+        }
+        forEachChild(ConfigObject::ignoreObjectsForCloudInstance);
+    }
 }

@@ -16,6 +16,9 @@ public class UpdateCommand extends SubCommand {
     @CommandLine.Option(names = "--no-delete", description = "Do NOT perform DELETE actions, only new objects and update existed objects")
     private boolean isNoDelete = false;
 
+    @CommandLine.Option(names = "--skip-vpn", description = "Skip Message-VPN update")
+    private boolean isSkipVPN = false;
+
     @CommandLine.Parameters(index = "0", description = "Configuration file")
     private Path confPath;
 
@@ -28,7 +31,7 @@ public class UpdateCommand extends SubCommand {
         }
 
         Commander commander = parentCommand.commander;
-        commander.update(confPath, isNoDelete);
+        commander.update(confPath, isNoDelete, isSkipVPN);
         return 0;
     }
 }
