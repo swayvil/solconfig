@@ -1,4 +1,9 @@
 # Backup and Restore Solace PubSub+ Broker Configuration with SEMPv2 protocol
+## Fork
+Forked version with new option for update command:
+```text
+      --skip-vpn   Skip Message-VPN settings update
+```
 
 ## Usage
 
